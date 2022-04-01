@@ -1,52 +1,61 @@
 ﻿namespace Decoder
 {    public class Decode
     {
-        private static readonly Dictionary<string, string> morse2Human = new()
+        private static readonly Dictionary<string, char> DictMorse2Human = new()
         {
-            { ".-", "A" },
-            { "-...", "B" },
-            { "-.-.", "C" },
-            { "-..", "D" },
-            { ".", "E" },
-            { "..-.", "F" },
-            { "--.", "G" },
-            { "....", "H" },
-            { "..", "I" },
-            { ".---", "J" },
-            { "-.-", "K" },
-            { ".-..", "L" },
-            { "--", "M" },
-            { "-.", "N" },
-            { "---", "O" },
-            { ".--.", "P" },
-            { "--.-", "Q" },
-            { ".-.", "R" },
-            { "...", "S" },
-            { "-", "T" },
-            { "..-", "U" },
-            { "...-", "V" },
-            { ".--", "W" },
-            { "-..-", "X" },
-            { "-.--", "Y" },
-            { "--..", "Z" },
-            { "----", "0" },
-            { ".----", "1" },
-            { "..---", "2" },
-            { "...--", "3" },
-            { "....-", "4" },
-            { ".....", "5" },
-            { "-....", "6" },
-            { "--...", "7" },
-            { "---..", "8" },
-            { "----.", "9" },
-            { ".-.-.-", "." }
+            { ".-", 'A' },
+            { "-...", 'B' },
+            { "-.-.", 'C' },
+            { "-..", 'D' },
+            { ".", 'E' },
+            { "..-.", 'F' },
+            { "--.", 'G' },
+            { "....", 'H' },
+            { "..", 'I' },
+            { ".---", 'J' },
+            { "-.-", 'K' },
+            { ".-..", 'L' },
+            { "--", 'M' },
+            { "-.", 'N' },
+            { "---", 'O' },
+            { ".--.", 'P' },
+            { "--.-", 'Q' },
+            { ".-.", 'R' },
+            { "...", 'S' },
+            { "-", 'T' },
+            { "..-", 'U' },
+            { "...-", 'V' },
+            { ".--", 'W' },
+            { "-..-", 'X' },
+            { "-.--", 'Y' },
+            { "--..", 'Z' },
+            { "----", '0' },
+            { ".----", '1' },
+            { "..---", '2' },
+            { "...--", '3' },
+            { "....-", '4' },
+            { ".....", '5' },
+            { "-....", '6' },
+            { "--...", '7' },
+            { "---..", '8' },
+            { "----.", '9' },
+            { ".-.-.-", ',' }
         };
+        public static string Human2Morse(string readHuman)
+        {
+            List<string> morse = new();
+            foreach (char character in readHuman.Replace(" ",string.Empty))
+            {
+                morse.Add(DictMorse2Human.FirstOrDefault(x => x.Value == character).Key);
+            }
+            return String.Join(" ", morse);
+        }
         public static string Morse2Human(string readMorse)
         {
             List<string> human = new();
             foreach (string morse in readMorse.Split(" "))
             {
-                human.Add(morse2Human[morse]);
+                human.Add(DictMorse2Human[morse].ToString());
             }
             return String.Join(string.Empty, human);
         }

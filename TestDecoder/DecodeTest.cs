@@ -44,5 +44,19 @@ namespace Decoder.nUnit
             string args = "000001100101010100100101101001001010010101001101001101101100110101101001011001101011001000000000";
             Assert.AreEqual("THEREISNOCAKE", Decode.Morse2Human(Decode.Bits2Morse(args)));
         }
+        [Test]
+        public void Human2Morse_HOLAMELI()
+        {
+            string args = "HOLA MELI";
+
+            Assert.AreEqual(".... --- .-.. .- -- . .-.. ..", Decode.Human2Morse(args));
+        }
+        [Test]
+        public void Human2Morse_CAKETEST()
+        {
+            string args = "THERE IS NO CAKE";
+
+            Assert.AreEqual("- .... . .-. . .. ... -. --- -.-. .- -.- .", Decode.Human2Morse(args));
+        }
     }
 }
