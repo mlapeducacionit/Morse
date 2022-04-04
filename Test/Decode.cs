@@ -46,18 +46,32 @@
             List<string> morse = new();
             foreach (char character in readHuman.Replace(" ",string.Empty))
             {
-                morse.Add(DictMorse2Human.FirstOrDefault(x => x.Value == character).Key);
+                try
+                {
+                    morse.Add(DictMorse2Human.First(x => x.Value == character).Key);
+                }
+                catch (InvalidOperationException)
+                {
+                    morse.Add(string.Format("#{0}#",character));
+                }                
             }
-            return String.Join(" ", morse);
+            return string.Join(" ", morse);
         }
         public static string Morse2Human(string readMorse)
         {
             List<string> human = new();
             foreach (string morse in readMorse.Split(" "))
             {
-                human.Add(DictMorse2Human[morse].ToString());
+                try
+                {
+                    human.Add(DictMorse2Human[morse].ToString());
+                }
+                catch (KeyNotFoundException)
+                {
+                    human.Add(string.Format("#{0}#", morse));
+                }
             }
-            return String.Join(string.Empty, human);
+            return string.Join(string.Empty, human);
         }
         public static string Bits2Morse(string readBits)
         {

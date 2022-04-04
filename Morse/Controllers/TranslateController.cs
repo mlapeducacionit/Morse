@@ -14,16 +14,40 @@ namespace Morse.Controllers
             _logger = logger;
         }
 
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(string))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
         [HttpPost, ActionName("ToText")]
-        public string ToText(string inMorse)
+        public IActionResult ToText(string inMorse)
         {
-            return Decode.Morse2Human(inMorse);
+            try
+            {
+                string outHuman = Decode.Morse2Human(inMorse);
+                if (outHuman.Contains('#') ) { return BadRequest(outHuman); }
+                return Ok(outHuman);
+            }
+            catch (Exception Ex)
+            {
+                return BadRequest(Ex.Message);
+            }
+            
         }
 
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(string))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
         [HttpPost, ActionName("ToMorse")]
-        public string ToMorse(string inHuman)
+        public IActionResult ToMorse(string inHuman)
         {
-            return Decode.Human2Morse(inHuman);
+            try
+            {
+                string outMorse = Decode.Human2Morse(inHuman);
+                if (outMorse.Contains('#')) { return BadRequest(outMorse); }
+                return Ok(outMorse);
+            }
+            catch (Exception Ex)
+            {
+                return BadRequest(Ex.Message);
+            }
+           
         }
     }
 }

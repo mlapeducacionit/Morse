@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace Decoder.nUnit
 {
@@ -57,6 +58,19 @@ namespace Decoder.nUnit
             string args = "THERE IS NO CAKE";
 
             Assert.AreEqual("- .... . .-. . .. ... -. --- -.-. .- -.- .", Decode.Human2Morse(args));
+        }
+        [Test]
+        public void Morse2Human_NOTMORSE()
+        {
+            string args = "...... --- .-.. .- -- . .-.. ..";
+            Assert.AreEqual("#......#OLAMELI", Decode.Morse2Human(args));
+        }
+        [Test]
+        public void Human2Morse_NOTHUMAN()
+        {
+            string args = "HOLA ;ELI";
+
+            Assert.AreEqual(".... --- .-.. .- #;# . .-.. ..", Decode.Human2Morse(args));
         }
     }
 }
